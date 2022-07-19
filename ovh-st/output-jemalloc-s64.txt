@@ -1,0 +1,25 @@
+Scenario: leak (leaking, finegrained)
+Type: leak
+Number of Allocations: 16777216 (16777216 per Thread)
+Allocation Size: 64
+Number of threads: 1
+Cycles: 1
+Touch: on
+Size Shuffle factor: 0.0
+Free Shuffle factor: 0.0
+Randomizer seed: 1658238370883
+Alloc delay: 0
+Free delay: 0
+----
+Net allocation per cycle will be 1024 MB +- 0 bytes.
+Lets start?
+<press key> ... (autopress) ... waiting 6 secs ... ... continuing.
+Cycle 0: before allocation...
+<press key> ... (autopress)  ... continuing.
+Cycle 0: allocating...
+Cycle 0: allocation phase completed (613 ms).
+<press key> ... (autopress) ... waiting 4 secs ... ... continuing.
+Done.
+<press key> ... (autopress)  ... continuing.
+Dumping Vitals to vitals-jemalloc-s64.txt
+Dumping Vitals csv to vitals-jemalloc-s64.csv

@@ -1,0 +1,95 @@
+
+------------system------------
+           avail: Memory available without swapping [host]
+            comm: Committed memory [host]
+             crt: Committed-to-Commit-Limit ratio (percent) [host]
+            swap: Swap space used [host]
+              si: Number of pages swapped in [host] [delta]
+              so: Number of pages pages swapped out [host] [delta]
+               p: Number of processes
+               t: Number of threads
+              tr: Number of threads running
+              tb: Number of threads blocked on disk IO
+          cpu-us: CPU user time [host]
+          cpu-sy: CPU system time [host]
+          cpu-id: CPU idle time [host]
+          cpu-st: CPU time stolen [host]
+          cpu-gu: CPU time spent on guest [host]
+      cgroup-lim: cgroup memory limit [cgrp]
+     cgroup-slim: cgroup memory soft limit [cgrp]
+      cgroup-usg: cgroup memory usage [cgrp]
+     cgroup-kusg: cgroup kernel memory usage (cgroup v1 only) [cgrp]
+-----------process------------
+            virt: Virtual size
+         rss-all: Resident set size, total
+        rss-anon: Resident set size, anonymous memory [krn]
+        rss-file: Resident set size, file mappings [krn]
+         rss-shm: Resident set size, shared memory [krn]
+            swdo: Memory swapped out
+       cheap-usd: C-Heap, in-use allocations (may be unavailable if RSS > 4G) [glibc]
+      cheap-free: C-Heap, bytes in free blocks (may be unavailable if RSS > 4G) [glibc]
+          cpu-us: Process cpu user time
+          cpu-sy: Process cpu system time
+           io-of: Number of open files
+           io-rd: IO bytes read from storage or cache
+           io-wr: IO bytes written
+             thr: Number of native threads
+-------------jvm--------------
+       heap-comm: Java Heap Size, committed
+       heap-used: Java Heap Size, used
+       meta-comm: Meta Space Size (class+nonclass), committed
+       meta-used: Meta Space Size (class+nonclass), used
+        meta-csc: Class Space Size, committed [cs]
+        meta-csu: Class Space Size, used [cs]
+       meta-gctr: GC threshold
+            code: Code cache, committed
+         nmt-mlc: Memory malloced by hotspot [nmt]
+         nmt-map: Memory mapped by hotspot [nmt]
+          nmt-gc: NMT "gc" (GC-overhead, malloc and mmap) [nmt]
+         nmt-oth: NMT "other" (typically DBB or Unsafe.allocateMemory) [nmt]
+         nmt-ovh: NMT overhead [nmt]
+        jthr-num: Number of java threads
+         jthr-nd: Number of non-demon java threads
+         jthr-cr: Threads created [delta]
+         jthr-st: Total reserved size of java thread stacks [nmt] [linux]
+        cldg-num: Classloader Data
+       cldg-anon: Anonymous CLD
+         cls-num: Classes (instance + array)
+          cls-ld: Class loaded [delta]
+         cls-uld: Classes unloaded [delta]
+
+   [host]: values are host-global (not containerized).
+   [cgrp]: if containerized or running in systemd slice
+    [krn]: depends on kernel version
+   [glibc]: only shown for glibc-based distros
+  [delta]: values refer to the previous measurement.
+    [nmt]: only shown if NMT is available and activated
+     [cs]: only shown on 64-bit if class space is active
+  [linux]: only on Linux
+(Vitals version 220600, pid: 342269)
+[mem] values are in KB.
+
+Now:
+                      ------------------------------------------system------------------------------------------ --------------------------------process--------------------------------- -----------------------------------jvm-----------------------------------
+                                                                        ------cpu------ ---------cgroup---------         -----------rss-----------      ---cheap---- -cpu- ----io----     ----heap---- ---------meta----------      --jthr--- --cldg-- ----cls-----
+                      avail    comm     crt swap   si so p   t    tr tb us sy id  st gu lim slim usg      kusg   virt    all     anon    file  shm swdo usd     free us sy of rd   wr thr comm   used  comm used csc csu gctr  code num nd cr num anon num  ld  uld 
+2022-07-19 16:02:24   60394732 10131540  28 743024       530 1146  1  0                          16405032 660904 8721300 2417484 2386968 30516   0    0 2141116 8275        7          33              2816 2647 320 243 21504       12  1             1397         
+
+Last 60 minutes:
+                      ------------------------------------------system------------------------------------------ --------------------------------process--------------------------------- -----------------------------------jvm-----------------------------------
+                                                                        ------cpu------ ---------cgroup---------         -----------rss-----------      ---cheap---- -cpu- ----io----     ----heap---- ---------meta----------      --jthr--- --cldg-- ----cls-----
+                      avail    comm     crt swap   si so p   t    tr tb us sy id  st gu lim slim usg      kusg   virt    all     anon    file  shm swdo usd     free us sy of rd   wr thr comm   used  comm used csc csu gctr  code num nd cr num anon num  ld  uld 
+2022-07-19 16:02:12   62513036 10085904  28 743024       530 1148  4  0                          14292392 656228 4025936  304644  279308 25336   0    0   40968 3908        5          33 262144  1942  128   51  64   2 21504 7488   9  1      3    0  465         
+2022-07-19 16:02:13   62502560 10098128  28 743024  0  0 530 1155  1  0  1  0  99  0  0          14301600 656564 4494100  318920  288384 30536   0    0   46571 4481  1  0  6 1076  0  40 262144  7069 2752 2582 320 235 21504 7936  14  1  5  41   38 1348 883   0 
+2022-07-19 16:02:14   62502560 10098128  28 743024  0  0 530 1155  1  0  0  0 100  0  0          14301512 656560 4494100  318920  288384 30536   0    0   46571 4481  0  0  6  117  0  40 262144  7069 2752 2582 320 235 21504 7936  14  1  0  41   38 1348   0   0 
+2022-07-19 16:02:15   62502560 10098128  28 743024  0  0 530 1155  1  0  0  0 100  0  0          14301500 656560 4494100  318920  288384 30536   0    0   46571 4481  0  0  6  117  0  40 262144  7069 2752 2582 320 235 21504 7936  14  1  0  41   38 1348   0   0 
+2022-07-19 16:02:16   62502560 10098128  28 743024  0  0 530 1155  1  0  0  0 100  0  0          14301476 656556 4494100  318920  288384 30536   0    0   46571 4481  0  0  6  117  0  40 262144  7069 2752 2582 320 235 21504 7936  14  1  0  41   38 1348   0   0 
+2022-07-19 16:02:17   62502560 10098128  28 743024  0  0 530 1155  1  0  0  0 100  0  0          14301512 656556 4494100  318920  288384 30536   0    0   46571 4481  0  0  6  117  0  40 262144  7069 2752 2582 320 235 21504 7936  14  1  0  41   38 1348   0   0 
+2022-07-19 16:02:18   62502308 10098080  28 743024  0  0 530 1151  1  0  0  0 100  0  0          14300744 656440 4494100  319068  288532 30536   0    0   43711 7253  0  0  6  117  0  37 262144  7069 2752 2582 320 235 21504 7936  11  1  0  41   38 1348   0   0 
+2022-07-19 16:02:19   61297132 10163968  29 743024  0  0 530 1217  2  0 14  6  78  0  0          15511408 660868 8754196 1517304 1486788 30516   0    0 1263581 5175 15  6  6  132  0 103 262144 23448 2816 2641 320 242 21504 7936  77 65 67  42   39 1394  46   0 
+2022-07-19 16:02:20   60396988 10135604  28 743024  0  0 530 1152  1  0  7  5  90  0  0          16404012 661024 8726440 2417568 2387052 30516   0    0 2141905 7367  7  5  6  119  0  38 262144 23448 2816 2645 320 242 21504 7936  12  1  0  42   39 1394   0   0 
+2022-07-19 16:02:21   60396988 10135604  28 743024  0  0 530 1151  1  0  0  0 100  0  0          16403964 660988 8726440 2417568 2387052 30516   0    0 2141905 7367  0  0  6  117  0  38 262144 23448 2816 2645 320 242 21504 7936  12  1  0  42   39 1394   0   0 
+2022-07-19 16:02:22   60396988 10135604  28 743024  0  0 530 1151  1  0  0  0 100  0  0          16404304 660996 8726440 2417568 2387052 30516   0    0 2141123 8149  0  0  6  117  0  38 262144 23448 2816 2645 320 242 21504 7936  12  1  0  42   39 1394   0   0 
+2022-07-19 16:02:23   60397000 10135604  28 743024  0  0 530 1151  1  0  0  0 100  0  0          16404368 660992 8726440 2417568 2387052 30516   0    0 2141123 8149  0  0  6  117  0  38 262144 23448 2816 2645 320 242 21504 7936  12  1  0  42   39 1394   0   0 
+
+
